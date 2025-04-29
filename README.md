@@ -66,7 +66,7 @@ If you use this code, please consider citing our paper:
 @inproceedings{pourya2025deal,
   title={DEALing with Image Reconstruction: Deep Attentive Least Squares},
   author={Pourya, Mehrsa and et al.},
-  booktitle={ICML},
+  booktitle={ArXIV},
   year={2025}
 }
 ```
