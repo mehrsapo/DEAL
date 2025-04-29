@@ -54,6 +54,15 @@ class DEAL(nn.Module):
         x = self.spline3(self.scaling * x)
         return torch.clip(x, 1e-2, 1) 
 
+    def K(self, x, idx=None):
+        return torch.sqrt(self.lmbda) * self.W1(x) * self.mask[idx]
+    
+    def Kt(self, y, idx=None):  
+        return torch.sqrt(self.lmbda) * self.W1.transpose(y * self.mask[idx])
+    
+
+    def KtK(self, x, idx=None):
+        return self.Kt(self.K(x, idx), idx)
     
     def cal_mask(self, x): 
         self.mask = self.last_act(self.M3(self.spline2(torch.abs(self.M2(self.spline1(torch.abs(self.M1(x))))))))
@@ -71,6 +80,71 @@ class DEAL(nn.Module):
     def BtB(self, x, H, Ht, idx=None):    
         BtBD = (Ht(H(x)) + self.lmbda[idx] * self.Lt(self.L(x, idx), idx))  / (1 + self.lmbda[idx])
         return BtBD
+
+
+    def cg_sample(self, b, x0, max_iter, eps=1e-5):
+        x = x0.clone() 
+        correct_idx_mask = [i for i in range(x.size(0))]
+        b = self.Kt(b, correct_idx_mask)
+        r = b - self.KtK(x, correct_idx_mask)
+        p = r.clone()
+        r_norm = r_norm_old = (r ** 2).sum(dim=(1, 2, 3), keepdim=True)  
+        output = torch.zeros_like(x)
+        len_old = x.size(0)
+        
+        idx_uniques_done = list()
+        idx_uniques_cont = list()
+        idx_uniques_cont.append([i for i in range(x.size(0))])
+        
+
+        for i in range(max_iter):
+
+            idx_cont = torch.where(r_norm.squeeze() > eps)[0].tolist()
+            
+            if i == max_iter -1 :
+                idx_cont = []
+
+            len_new = len(idx_cont)
+
+            if len_new != len_old:
+                idx_done = torch.where(r_norm.squeeze() <= eps)[0].tolist()
+
+                if i == max_iter -1:
+                    idx_done = [h for h in range(x.size(0))]
+                idx_uniques_done.append(idx_done)
+                
+                
+                correct_idx = [idx_uniques_cont[-1][id] for id in idx_done]
+                for j in range(len(idx_uniques_cont)-1):
+                    correct_idx = [idx_uniques_cont[-j-2][id] for id in correct_idx]
+
+                correct_idx_mask = [idx_uniques_cont[-1][id] for id in idx_cont]
+                for j in range(len(idx_uniques_cont)-1):
+                    correct_idx_mask = [idx_uniques_cont[-j-2][id] for id in correct_idx_mask]
+
+                output[correct_idx] = x[idx_done]
+                idx_uniques_cont.append(idx_cont)
+                r = r[idx_cont]
+                p = p[idx_cont]
+                x = x[idx_cont]
+                r_norm = r_norm[idx_cont]
+                len_old = len_new
+
+            if len(idx_cont) == 0:
+                break
+
+            BTBp = self.KtK(p, correct_idx_mask)
+            alpha = r_norm / ((p * BTBp).sum(dim=(1, 2, 3), keepdim=True))
+
+            x = x + alpha * p
+            r_norm_old = r_norm.clone()
+            r = r - alpha * BTBp
+
+            r_norm = (r ** 2).sum(dim=(1, 2, 3), keepdim=True) 
+            beta = r_norm / (r_norm_old)
+            p = r + beta * p
+
+        return output, i
 
 
     def cg(self, b, x0, max_iter, eps=1e-5, H=lambda x: x, Ht=lambda x: x, dims=(1, 2, 3)):
@@ -199,7 +273,7 @@ class DEAL(nn.Module):
         return  c_k1
 
 
-    def solve_inverse_problem(self, y, H, Ht, sigma, lmbda, eps_in=1e-6, eps_out=1e-5, path=False, verbose=False):
+    def solve_inverse_problem(self, y, H, Ht, sigma, lmbda, eps_in=1e-8, eps_out=1e-5, path=False, x_init=None, verbose=False):
 
         self.W1.spectral_norm()
         self.cal_scaling(torch.tensor([[sigma]]).to(y.device))
@@ -208,22 +282,28 @@ class DEAL(nn.Module):
             c_ks = list() # path solutions
 
         with torch.no_grad():
-            c_k = Ht(y) * 0
+            if x_init is not None:
+                c_k = x_init
+            else:
+                c_k = Ht(y) * 0
             c_k_old = c_k.clone()
             for m in range(1000):
+                if path:
+                    c_ks.append(c_k)
                 self.cal_mask(c_k)
                 c_k, cg_iters = self.cg(Ht(y), c_k_old, 1000, eps=eps_in, H=H, Ht=Ht)
                 res = torch.norm(c_k-c_k_old)/(torch.norm(c_k_old))
                 c_k_old = c_k.clone()
                 if verbose:
                     print('CG Number: ', m, 'CG iterations: ', cg_iters, 'Outer residual: ', res)
-                if path:
-                    c_ks.append(c_k)
                 if (res < eps_out).all():
                     break
-
-        if path: return torch.clip(c_k, 0, 1) , c_ks
+        
+        if path:
+            c_ks.append(c_k)
+            return torch.clip(c_k, 0, 1) , c_ks
         else: return torch.clip(c_k, 0, 1)
+
 
 
 
