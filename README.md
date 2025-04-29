@@ -8,18 +8,14 @@ This repository contains the official PyTorch implementation of **DEAL (Deep Att
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/deal-image-reconstruction.git
-   cd deal-image-reconstruction
+   git clone https://github.com/mehrsapo/DEAL.git
+   cd DEAL
    ```
 
 2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-
-3. **Download the pretrained model:**
-   Ensure you have `trained_models/deal_color.pth` in your project directory. You can change the path as needed in your script.
-
 ---
 
 ## 🧠 Load the Model
