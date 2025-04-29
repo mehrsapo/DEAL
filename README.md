@@ -14,7 +14,7 @@ This repository contains the official PyTorch implementation of **DEAL (Deep Att
 
 2. **Install dependencies:**
    ```bash
-   conda create -n deal
+   conda create -n deal python=3.11.2
    conda activate deal
    conda install pip
    pip install -r requirements.txt
