@@ -1,0 +1,9 @@
+torch
+numpy
+matplotlib
+tqdm
+tensorboard
+h5py
+scikit-image
+datasets
+standard-imghdr
