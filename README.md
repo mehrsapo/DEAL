@@ -27,9 +27,9 @@ This repository contains the official PyTorch implementation of **DEAL (Deep Att
 import torch
 from deal import DEAL 
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = 'cuda:0' # change to your device name e.g. 'cpu', 'cuda:3', etc.
 path_ckp = "trained_models/deal_color.pth" # change to deal_gray.pth for grayscale setup
-ckp = torch.load(path_ckp, map_location={'cuda:0': device, 'cuda:1': device, 'cuda:2': device, 'cuda:3': device})
+ckp = torch.load(path_ckp, map_location={'cuda:0':device,'cuda:1':device,'cuda:2':device,'cuda:3':device})
 
 model = DEAL(color=True) # change to color=False for grayscale setup
 model.to(device)
