@@ -66,10 +66,11 @@ This project is released under the MIT License.
 If you use this code, please consider citing our paper:
 
 ```
-@inproceedings{pourya2025deal,
+@article{pourya2025dealing,
   title={DEALing with Image Reconstruction: Deep Attentive Least Squares},
-  author={Pourya, Mehrsa and et al.},
-  booktitle={ArXIV},
+  author={Pourya, Mehrsa and Kobler, Erich and Unser, Michael and Neumayer, Sebastian},
+  journal={arXiv preprint arXiv:2502.04079},
   year={2025}
 }
 ```
+
