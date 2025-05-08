@@ -1,116 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DEALing with Image Reconstruction: Deep Attentive Least Squares</title>
+  <meta charset="utf-8">
+  <title>DEALing with Image Reconstruction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      padding: 40px;
-      line-height: 1.6;
-      color: #333;
-    }
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      background: white;
-      padding: 50px;
-      border-radius: 14px;
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.05);
-    }
-    h1 {
-      font-size: 30px;
-      margin-bottom: 10px;
-      color: #2c3e50;
-    }
-    h2 {
-      font-size: 20px;
-      margin-top: 40px;
-      color: #2c3e50;
-    }
-    .links {
-      margin: 20px 0 30px;
-    }
-    .links a {
-      margin-right: 20px;
-      font-weight: bold;
-      color: #007acc;
-      text-decoration: none;
-    }
-    .links a:hover {
-      text-decoration: underline;
-    }
-    p, ul {
-      font-size: 17px;
-      line-height: 1.7;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    img {
-      max-width: 70%;
-      height: auto;
-      display: block;
-      margin: 30px auto;
-
-      max-width: 100%;
-      margin: 30px 0 10px;
-      border-radius: 8px;
-    }
-    .caption {
-      font-style: italic;
-      font-size: 14px;
-      color: #777;
-      margin-bottom: 40px;
-    }
-    pre {
-      background: #f4f4f4;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      overflow-x: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1 style="font-size: 28px;">DEALing with Image Reconstruction: Deep Attentive Least Squares</h1>
 
-    <div class="links">
-      <a href="https://github.com/mehrsapo/DEAL" target="_blank">Code</a>
-      <a href="https://arxiv.org/abs/2502.04079" target="_blank">Paper</a>
-    </div>
+  <header>
+    <h1>DEALing with Image Reconstruction: Deep Attentive Least Squares</h1>
+    <h2>ICML 2025</h2>
+    <p><strong>Mehrsa Pourya</strong>, Erich Kobler, Michael Unser, Sebastian Neumayer</p>
+    <p>
+      <a href="https://arxiv.org/abs/2502.04079" target="_blank">[Paper]</a>
+      <a href="https://github.com/mehrsapo/DEAL" target="_blank">[Code]</a>
+    </p>
+  </header>
 
-    <p><strong>DEAL</strong> is a novel image reconstruction framework that combines the interpretability of classical methods with the performance of deep learning. It builds on iterative refinement and attention-based regularization, resulting in an interpretable and robust architecture.</p>
+  <main>
+    <section>
+      <h3>Abstract</h3>
+      <p>
+        DEAL is a novel and universal image reconstruction framework that combines the interpretability of classical methods with the power of deep learning.
+        What I find most exciting is that the mapping from measurements to the reconstructed image remains highly interpretable:
+        each output pixel is computed as an attentive average of the (adjoint of) the measurements, with weights that adapt to the spatial structure of the image.
+      </p>
+    </section>
 
-    <h2>Key Highlights</h2>
-    <ul>
-      <li><strong>~SOTA Performance:</strong> On-par with leading PnP methods using 30× fewer parameters.</li>
-      <li><strong>Universality:</strong> Same architecture across inverse problems with minimal tuning.</li>
-      <li><strong>Interpretability:</strong> Visual attention masks and reconstruction weights expose how each pixel is formed from input.</li>
-    </ul>
+    <section>
+      <h3>Figure</h3>
+      <img src="static/images/figure8.png" alt="Figure 8" style="max-width:90%;margin-top:1em;border-radius:8px;">
+      <p><em>Figure 8: Visualizing how each output pixel is a spatially adaptive weighted average of the input measurements.</em></p>
+    </section>
 
-    <h2>Architecture Overview</h2>
-    <img src="figure1.png" alt="Figure 1: Overview of the DEAL framework">
-    <div class="caption">Figure 1: DEAL generates a sequence of reconstructions using iterative updates that alternate between reconstruction and attention-based mask generation.</div>
-
-    <h2>Attention Mechanism</h2>
-    <img src="figure2.png" alt="Figure 2: Mask generation block architecture">
-    <div class="caption">Figure 2: The mask generation block uses a shallow CNN to estimate pixel-wise attention masks that modulate the regularization strength.</div>
-
-    <h2>Interpretability</h2>
-    <img src="figure8.png" alt="Figure 8: Visualizing how each reconstructed pixel is a weighted average of the input">
-    <div class="caption">Figure 8: Each pixel in the reconstructed image is a weighted average of the input measurements, adapted to the local image structure.</div>
-
-    <h2>Citation</h2>
-    <pre><code>@article{pourya2025dealing,
+    <section>
+      <h3>BibTeX</h3>
+      <pre><code>@article{pourya2025dealing,
   title={DEALing with Image Reconstruction: Deep Attentive Least Squares},
   author={Pourya, Mehrsa and Kobler, Erich and Unser, Michael and Neumayer, Sebastian},
   journal={arXiv preprint arXiv:2502.04079},
   year={2025}
 }</code></pre>
-  </div>
+    </section>
+  </main>
+
 </body>
 </html>
