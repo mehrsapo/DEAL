@@ -84,10 +84,17 @@ This project is released under the MIT License.
 ---
 
 
-## : 🙏 Acknowledgments
+## 🙏 Acknowledgments
 
 Som parts of the are code taken from: 
 - Deep Plug-and-Play Image Restoration (DPIR) : https://github.com/cszn/DPIR 
+
+
+## ✉️ Questions?
+
+If you have any questions or feedback, feel free to reach out:
+
+📧 **Email**: [mehrsapo@gmail.com](mailto:mehrsapo@gmail.com)
 
 
 ## 📫 Citation
@@ -103,11 +110,6 @@ If you use this code, please consider citing our paper:
 }
 ```
 
-## ✉️ Questions?
-
-If you have any questions or feedback, feel free to reach out:
-
-📧 **Email**: [mehrsapo@gmail.com](mailto:mehrsapo@gmail.com)
 
 
 
