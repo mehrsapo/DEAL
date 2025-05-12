@@ -57,15 +57,15 @@ out_deal = model.solve_inverse_problem(y_torch, H, Ht, sigma_denoiser, lambda_)
 
 #### 🔹 Arguments:
 
-- `y_torch` (`torch.Tensor`): The observed measurement, shape **(1, C, H_y, W_y)**, where:
-  - `C` is the number of channels (1 for grayscale, 3 for color)
+- `y_torch` (`torch.Tensor`): The observed measurement, shape **(1, C_y, H_y, W_y)**, where:
+  - `C_y` is the number of channels of the measurements, 
   - `H_y`, `W_y` are the image height and width of the measurements.
 
 - `H` (`callable`): Forward operator, a Python function that applies the degradation process to an image tensor of shape **(1, C, H, W)**.
 
 - `Ht` (`callable`): Adjoint (transpose) of the forward operator.
 
-- `sigma_denoiser` (`float`): Noise level assumed by the learned denoiser. A value of **15/255** is recommended for most tasks.
+- `sigma_denoiser` (`float`): Noise level assumed by the learned denoiser. A value of **15** is recommended for most tasks.
 
 - `lambda_` (`float`): Regularization parameter controlling the strength of the prior. Needs tuning depending on the task and corruption severity.
 
