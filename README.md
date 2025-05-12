@@ -77,12 +77,6 @@ out_deal = model.solve_inverse_problem(y_torch, H, Ht, sigma_denoiser, lambda_)
 
 ---
 
-## 📄 License
-
-This project is released under the MIT License.
-
----
-
 
 ## 🙏 Acknowledgments
 
@@ -96,6 +90,13 @@ If you have any questions or feedback, feel free to reach out:
 
 📧 **Email**: [mehrsapo@gmail.com](mailto:mehrsapo@gmail.com)
 
+---
+
+## 📄 License
+
+This project is released under the MIT License.
+
+---
 
 ## 📫 Citation
 
