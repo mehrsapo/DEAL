@@ -1,5 +1,16 @@
 # DEAL: Deep Attentive Least Squares for Image Reconstruction
 
+[![arXiv](https://img.shields.io/badge/arXiv-2502.04079-b31b1b.svg)](https://arxiv.org/abs/2502.04079)
+[![Project Website](https://img.shields.io/badge/Website-DEAL-blue)](https://mehrsapo.github.io/DEAL/)
+
+This repository contains the official PyTorch implementation of **DEAL (Deep Attentive Least Squares)** — a general framework for solving inverse problems in image reconstruction by blending iterative solvers with learned attention-based denoisers.
+
+📄 **Paper**: [DEALing with Image Reconstruction: Deep Attentive Least Squares (arXiv:2502.04079)](https://arxiv.org/abs/2502.04079)  
+🌐 **Project Website**: [mehrsapo.github.io/DEAL](https://mehrsapo.github.io/DEAL/)
+
+---
+
+
 This repository contains the official PyTorch implementation of **DEAL (Deep Attentive Least Squares)**, a model designed for solving inverse problems in image reconstruction by blending iterative solvers with learned attention-based denoisers.
 
 ---
@@ -73,4 +84,3 @@ If you use this code, please consider citing our paper:
   year={2025}
 }
 ```
-
