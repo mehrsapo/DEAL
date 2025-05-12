@@ -86,7 +86,7 @@ This project is released under the MIT License.
 
 ## 🙏 Acknowledgments
 
-Som parts of the are code taken from: 
+Some parts of the are code taken from: 
 - Deep Plug-and-Play Image Restoration (DPIR) : https://github.com/cszn/DPIR 
 
 
