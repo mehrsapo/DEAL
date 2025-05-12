@@ -54,11 +54,11 @@ def SR(hparams):
 
     # Load the 8 blur kernels
     if classic:
-        kernel_path = "kernels/kernels_12.mat"
+        kernel_path = "data/kernels/kernels_12.mat"
         k_list = range(4)
     
     else:
-        kernel_path = "kernels/kernels_bicubicx234.mat"
+        kernel_path = "data/kernels/kernels_bicubicx234.mat"
         k_list = range(1)
 
     print(kernel_path)
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     parser.add_argument('--patch_size', type=int, default=256)
     parser.add_argument('--n_images', type=int, default=68)
     parser.add_argument('--noise_level_img', type=float, default=0)
-    parser.add_argument('--dataset_path', type=str, default='sr_datasets')
+    parser.add_argument('--dataset_path', type=str, default='data')
     parser.add_argument('--dataset_name', type=str, default='CBSD68')
     parser.add_argument('--device', type=str, default='cuda:3')
     parser.add_argument('--sf', type=int, default=2)
