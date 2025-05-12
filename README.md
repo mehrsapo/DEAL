@@ -72,7 +72,7 @@ out_deal = model.solve_inverse_problem(y_torch, H, Ht, sigma_denoiser, lambda_)
 
 - A reconstructed image tensor of shape **(1, C, H, W)**, clipped to the range **[0, 1]**.
   - `C` is the number of channels of the image (1 for grayscale and 3 for color images), 
-  - `H_y`, `W_y` are the image height and width of the image.
+  - `H`, `W` are the image height and width of the image.
 
 
 ---
