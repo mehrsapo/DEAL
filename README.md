@@ -47,7 +47,6 @@ model.eval()
 
 ## 🔁 Reconstruct an Image
 
-### 🧠 Reconstructing an Image with `solve_inverse_problem`
 
 To reconstruct an image using DEAL, call the `solve_inverse_problem` method as follows:
 
