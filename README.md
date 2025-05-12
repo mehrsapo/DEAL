@@ -3,15 +3,10 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2502.04079-b31b1b.svg)](https://arxiv.org/abs/2502.04079)
 [![Project Website](https://img.shields.io/badge/Website-DEAL-blue)](https://mehrsapo.github.io/DEAL/)
 
-This repository contains the official PyTorch implementation of **DEAL (Deep Attentive Least Squares)** — a general framework for solving inverse problems in image reconstruction by blending iterative solvers with learned attention-based denoisers.
+This repository contains the official PyTorch implementation of **DEAL (Deep Attentive Least Squares)** — a interpretable framework for solving inverse problems in image reconstruction.
 
 📄 **Paper**: [DEALing with Image Reconstruction: Deep Attentive Least Squares (arXiv:2502.04079)](https://arxiv.org/abs/2502.04079)  
 🌐 **Project Website**: [mehrsapo.github.io/DEAL](https://mehrsapo.github.io/DEAL/)
-
----
-
-
-This repository contains the official PyTorch implementation of **DEAL (Deep Attentive Least Squares)**, a model designed for solving inverse problems in image reconstruction by blending iterative solvers with learned attention-based denoisers.
 
 ---
 
@@ -83,4 +78,38 @@ If you use this code, please consider citing our paper:
   journal={arXiv preprint arXiv:2502.04079},
   year={2025}
 }
+```
+
+
+### 🧠 Reconstructing an Image with `solve_inverse_problem`
+
+To reconstruct an image using DEAL, call the `solve_inverse_problem` method as follows:
+
+```python
+out_deal = model.solve_inverse_problem(y_torch, H, Ht, sigma_denoiser, lambda_)
+```
+
+#### 🔹 Arguments:
+
+- `y_torch` (`torch.Tensor`): The observed measurement, shape **(1, C, H, W)**, where:
+  - `C` is the number of channels (1 for grayscale, 3 for color)
+  - `H`, `W` are the image height and width  
+  Must be normalized to **[0, 1]** and on the same device as the model.
+
+- `H` (`callable`): Forward operator, a Python function that applies the degradation process to an image tensor of shape **(1, C, H, W)**.
+
+- `Ht` (`callable`): Adjoint (transpose) of the forward operator. Must have the same input/output shape as `H`.
+
+- `sigma_denoiser` (`float`): Noise level assumed by the learned denoiser. A value of **15/255** is recommended for most tasks.
+
+- `lambda_` (`float`): Regularization parameter controlling the strength of the prior. Needs tuning depending on the task and corruption severity.
+
+#### 🔹 Returns:
+
+- A reconstructed image tensor of shape **(1, C, H, W)**, clipped to the range **[0, 1]**.
+
+#### 📝 Example:
+
+```python
+x_rec = model.solve_inverse_problem(y_torch, H, Ht, sigma=15/255, lmbda=0.1)
 ```
