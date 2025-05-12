@@ -83,6 +83,7 @@ out_deal = model.solve_inverse_problem(y_torch, H, Ht, sigma_denoiser, lambda_)
 Some parts of the are code taken from: 
 - Deep Plug-and-Play Image Restoration (DPIR) : https://github.com/cszn/DPIR 
 
+---
 
 ## ✉️ Questions?
 
